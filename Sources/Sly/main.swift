@@ -14,9 +14,9 @@ struct Sly: Website {
     }
 
     // Update these properties to configure your website:
-    var url = URL(string: "https://your-website-url.com")!
+    var url = URL(string: "https://sly.dev")!
     var name = "Sly"
-    var description = "A description of Sly"
+    var description = "Blogging my journey into software development. Learning Swift and Swift UI."
     var language: Language { .english }
     var imagePath: Path? { nil }
 }
