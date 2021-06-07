@@ -1,0 +1,24 @@
+{
+  "name": "sly.dev",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "npx @11ty/eleventy --serve"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mrjohnsly/sly.dev.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mrjohnsly/sly.dev/issues"
+  },
+  "homepage": "https://github.com/mrjohnsly/sly.dev#readme",
+  "dependencies": {
+    "@11ty/eleventy": "^0.12.1",
+    "luxon": "^1.27.0"
+  }
+}
