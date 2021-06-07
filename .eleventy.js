@@ -1,6 +1,8 @@
 const { DateTime } = require("luxon");
 
 module.exports = function(eleventyConfig) {
+
+  eleventyConfig.addPassthroughCopy("./src/assets/styles/main.css");
   
   eleventyConfig.addFilter("readableDate", dateObj => {
     return DateTime.fromJSDate(dateObj, {zone: "Europe/London"}).toFormat("dd LLLL yyyy");
