@@ -1,5 +1,7 @@
 {% extends "./base.html" %}
 {% block content %}
+
+  <h2>Recent Posts</h2>
   <article>
   {%- for note in collections.notes | reverse -%}
 
@@ -10,5 +12,6 @@
     <a href="{{ note.url }}"><time datetime="{{ note.date | isoDate }}">{{ note.date | readableDate }} {{ note.date | readableTime }}</time></a>
     {{ note.templateContent | safe }}
   </article>
+  <hr>
   {%- endfor -%}
 {% endblock %}
