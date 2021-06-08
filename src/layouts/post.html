@@ -1,14 +1,11 @@
 {% extends "./base.html" %}
 {% block content %}
   <article>
-  {%- for note in collections.notes | reverse -%}
-
-    {%- if note.data.title | length != 0 -%}
-      <h1><a href="{{ note.url }}">{{ note.data.title }}</a></h1>
+    {%- if title | length != 0 -%}
+      <h1><a href="{{ url }}">{{ title }}</a></h1>
     {%- endif -%}
 
-    <a href="{{ note.url }}"><time datetime="{{ note.date | isoDate }}">{{ note.date | readableDate }} {{ note.date | readableTime }}</time></a>
-    {{ note.templateContent | safe }}
+    <a href="{{ note.url }}"><time datetime="{{ date | isoDate }}">{{ date | readableDate }} {{ date | readableTime }}</time></a>
+    {{ content | safe }}
   </article>
-  {%- endfor -%}
 {% endblock %}
