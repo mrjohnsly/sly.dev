@@ -1,11 +1,12 @@
 {% extends "./base.html" %}
 {% block content %}
   <article>
+    <time datetime="{{ date | isoDate }}"><a href="{{ note.url }}">{{ date | readableDate }} {{ date | readableTime }}</a></time>
+    
     {%- if title | length != 0 -%}
       <h1><a href="{{ url }}">{{ title }}</a></h1>
     {%- endif -%}
 
-    <time datetime="{{ date | isoDate }}"><a href="{{ note.url }}">{{ date | readableDate }} {{ date | readableTime }}</a></time>
     {{ content | safe }}
   </article>
 {% endblock %}

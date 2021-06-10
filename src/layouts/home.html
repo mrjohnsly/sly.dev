@@ -3,11 +3,12 @@
   
   <article>
   {%- for note in collections.notes | reverse -%}
+    <time datetime="{{ note.date | isoDate }}"><a href="{{ note.url }}">{{ note.date | readableDate }} {{ note.date | readableTime }}</a></time>
+    
     {%- if note.data.title | length != 0 -%}
       <h1><a href="{{ note.url }}">{{ note.data.title }}</a></h1>
     {%- endif -%}
   
-    <time datetime="{{ note.date | isoDate }}"><a href="{{ note.url }}">{{ note.date | readableDate }} {{ note.date | readableTime }}</a></time>
     {{ note.templateContent | safe }}
   
     <hr>
