@@ -5,7 +5,7 @@
       <h1><a href="{{ url }}">{{ title }}</a></h1>
     {%- endif -%}
 
-    <a href="{{ note.url }}"><time datetime="{{ date | isoDate }}">{{ date | readableDate }} {{ date | readableTime }}</time></a>
+    <time datetime="{{ date | isoDate }}"><a href="{{ note.url }}">{{ date | readableDate }} {{ date | readableTime }}</a></time>
     {{ content | safe }}
   </article>
 {% endblock %}
