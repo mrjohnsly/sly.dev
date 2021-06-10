@@ -1,7 +1,5 @@
 {% extends "./base.html" %}
 {% block content %}
-
-  <h2>Recent Posts</h2>
   
   <article>
   {%- for note in collections.notes | reverse -%}

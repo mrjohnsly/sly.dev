@@ -1,4 +1,4 @@
-body {
+html {
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji;
   font-size: 16px;
 }
@@ -6,4 +6,22 @@ body {
 img {
   display: block;
   max-width: 100%;
+}
+
+.wrapper {
+  max-width: 60rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+article h1,
+article h2,
+article h3,
+article p,
+article ul,
+article time {
+  display: block;
+  max-width: 40rem;
+  margin-left: auto;
+  margin-right: auto;
 }
