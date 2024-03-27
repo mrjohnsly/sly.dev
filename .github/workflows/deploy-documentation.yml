@@ -34,7 +34,7 @@ jobs:
       - name: Build
         run: swift build -v
       - name: Generate Documentation
-        run: swift package --allow-writing-to-directory docs generate-documentation --target Server --disable-indexing --transform-for-static-hosting --hosting-base-path https://mrjohnsly.github.io/sly.dev --output-path docs
+        run: swift package --allow-writing-to-directory docs generate-documentation --target Server --disable-indexing --transform-for-static-hosting --hosting-base-path /sly.dev --output-path docs
       - name: Zip Documentation
         run: zip -r docs.zip docs
       - name: Upload Zipped Documentation
