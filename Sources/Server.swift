@@ -34,10 +34,8 @@ func buildApplication(_ arguments: some AppArguments) async throws -> some Appli
     
     let router = Router()
     router.middlewares.add(LogRequestsMiddleware(.info))
-    router.get("/api") { request, context in
-        "Up!\n"
-    }
-    
+    APIController().addRoute(to: router.group("api"))
+
     let app = Application(
         router: router,
         configuration: .init(address: .hostname(arguments.hostname, port: arguments.port)),
