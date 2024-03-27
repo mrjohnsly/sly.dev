@@ -35,6 +35,7 @@ func buildApplication(_ arguments: some AppArguments) async throws -> some Appli
     let router = Router()
     router.middlewares.add(LogRequestsMiddleware(.info))
     APIController().addRoute(to: router.group("api"))
+    BookmarksController().addRoute(to: router.group("api/bookmarks"))
 
     let app = Application(
         router: router,
