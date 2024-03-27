@@ -8,7 +8,6 @@ on:
 
 jobs:
   build:
-
     runs-on: macos-14
 
     steps:
@@ -24,5 +23,21 @@ jobs:
       run: sudo xcode-select -s /Applications/Xcode_15.2.app
     - name: Build
       run: swift build -v
+
+  test:
+    needs: build
+    runs-on: macos-14
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Cache SwiftPM packages
+      uses: actions/cache@v4
+      with:
+        path: .build
+        key: ${{ runner.os }}-swiftpm-${{ hashFiles('**/Package.resolved') }}
+        restore-keys: |
+          ${{ runner.os }}-swiftpm-
+    - name: Set Xcode version
+      run: sudo xcode-select -s /Applications/Xcode_15.2.app
     - name: Run tests
       run: swift test -v
