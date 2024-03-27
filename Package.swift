@@ -20,5 +20,13 @@ let package = Package(
                 .product(name: "Hummingbird", package: "hummingbird"),
             ]
         ),
+        .testTarget(
+            name: "ServerTests",
+            dependencies: [
+                "Server",
+                .product(name: "Hummingbird", package: "hummingbird"),
+                .product(name: "HummingbirdTesting", package: "hummingbird"),
+            ]
+        )
     ]
 )
