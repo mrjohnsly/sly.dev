@@ -7,7 +7,7 @@
 import ArgumentParser
 
 @main
-struct sly_dev: ParsableCommand {
+struct Server: ParsableCommand {
     mutating func run() throws {
         print("Hello, world!")
     }
