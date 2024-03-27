@@ -3,16 +3,31 @@ import Hummingbird
 import Logging
 
 @main
-struct Server: AsyncParsableCommand {
+struct Server: AsyncParsableCommand, AppArguments {
+    
+    @Option(name: .shortAndLong)
+    var hostname: String = "127.0.0.1"
+    
+    @Option(name: .shortAndLong)
+    var port: Int = 8080
+    
+    @Flag
+    var inMemoryTesting: Bool = false
     
     func run() async throws {
-        let app = try await buildApplication()
+        let app = try await buildApplication(self)
         try await app.runService()
     }
     
 }
 
-func buildApplication() async throws -> some ApplicationProtocol {
+protocol AppArguments {
+    var hostname: String { get }
+    var port: Int { get }
+    var inMemoryTesting: Bool { get }
+}
+
+func buildApplication(_ arguments: some AppArguments) async throws -> some ApplicationProtocol {
     
     var logger = Logger(label: "Server")
     logger.logLevel = .debug
@@ -25,7 +40,7 @@ func buildApplication() async throws -> some ApplicationProtocol {
     
     let app = Application(
         router: router,
-        configuration: .init(address: .hostname("127.0.0.1", port: 8080)),
+        configuration: .init(address: .hostname(arguments.hostname, port: arguments.port)),
         logger: logger
     )
     
