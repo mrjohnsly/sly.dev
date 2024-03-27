@@ -6,6 +6,7 @@
 
 import ArgumentParser
 import Hummingbird
+import Logging
 
 @main
 struct Server: AsyncParsableCommand {
@@ -19,14 +20,19 @@ struct Server: AsyncParsableCommand {
 
 func buildApplication() async throws -> some ApplicationProtocol {
     
+    var logger = Logger(label: "Server")
+    logger.logLevel = .debug
+    
     let router = Router()
+    router.middlewares.add(LogRequestsMiddleware(.info))
     router.get("/api") { request, context in
         "Up!\n"
     }
     
     let app = Application(
         router: router,
-        configuration: .init(address: .hostname("127.0.0.1", port: 8080))
+        configuration: .init(address: .hostname("127.0.0.1", port: 8080)),
+        logger: logger
     )
     
     return app
