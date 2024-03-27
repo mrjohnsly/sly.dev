@@ -3,7 +3,7 @@ import Hummingbird
 import HummingbirdTesting
 import XCTest
 
-final class ServerTests: XCTest {
+final class ServerTests: XCTestCase {
     
     struct TestArguments: AppArguments {
         var hostname: String = "127.0.0.1"
