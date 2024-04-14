@@ -24,3 +24,11 @@ jobs:
       run: swift build -v
     - name: Run tests
       run: swift test -v
+
+  build-release:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Install Swiftly
+      run: |
+        curl -L https://swift-server.github.io/swiftly/swiftly-install.sh | bash -s -- --disable-confirmation
