@@ -94,4 +94,4 @@ jobs:
           SSH_PORT: ${{ secrets.STAGING_SSH_PORT }}
           SSH_USER: ${{ secrets.STAGING_SSH_USER }}
         run: |
-          scp -p $SSH_PORT sly.dev-0.0.1.tar.gz $SSH_USER@$SSH_HOST:/var/www/
+          ssh -p $SSH_PORT $SSH_USER@$SSH_HOST 'exit'
