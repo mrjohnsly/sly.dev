@@ -32,3 +32,6 @@ jobs:
     - name: Install Swiftly
       run: |
         curl -L https://swift-server.github.io/swiftly/swiftly-install.sh | bash -s -- --disable-confirmation
+    - name: Install Swift
+      run: |
+        swiftly install latest
