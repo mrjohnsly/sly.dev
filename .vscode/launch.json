@@ -1,0 +1,52 @@
+{
+	"configurations": [
+		{
+			"type": "lldb",
+			"request": "launch",
+			"sourceLanguages": [
+				"swift"
+			],
+			"args": [],
+			"cwd": "${workspaceFolder:sly.dev}",
+			"name": "Debug sly.dev",
+			"program": "${workspaceFolder:sly.dev}/.build/debug/sly.dev",
+			"preLaunchTask": "swift: Build Debug sly.dev"
+		},
+		{
+			"type": "lldb",
+			"request": "launch",
+			"sourceLanguages": [
+				"swift"
+			],
+			"args": [],
+			"cwd": "${workspaceFolder:sly.dev}",
+			"name": "Release sly.dev",
+			"program": "${workspaceFolder:sly.dev}/.build/release/sly.dev",
+			"preLaunchTask": "swift: Build Release sly.dev"
+		},
+		{
+			"type": "lldb",
+			"request": "launch",
+			"sourceLanguages": [
+				"swift"
+			],
+			"args": [],
+			"cwd": "${workspaceFolder:sly.dev}",
+			"name": "Debug SlyDevServer",
+			"program": "${workspaceFolder:sly.dev}/.build/debug/SlyDevServer",
+			"preLaunchTask": "swift: Build Debug SlyDevServer"
+		},
+		{
+			"type": "lldb",
+			"request": "launch",
+			"sourceLanguages": [
+				"swift"
+			],
+			"args": [],
+			"cwd": "${workspaceFolder:sly.dev}",
+			"name": "Release SlyDevServer",
+			"program": "${workspaceFolder:sly.dev}/.build/release/SlyDevServer",
+			"preLaunchTask": "swift: Build Release SlyDevServer"
+		}
+	]
+}
