@@ -83,7 +83,7 @@ jobs:
         run: |
           cat >>~/.ssh/config <<END
           Host $SSH_HOST
-            HOST $SSH_HOST
+            Hostname $SSH_HOST
             User $SSH_USER
             IdentityFile ~/.ssh/staging.key
             StrictHostKeyChecking yes
