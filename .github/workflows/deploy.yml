@@ -13,6 +13,13 @@ jobs:
     - uses: actions/checkout@v4
     - name: Set Xcode version
       run: sudo xcode-select -s /Applications/Xcode_15.3.app
+    - name: Cache SwiftPM packages
+      uses: actions/cache@v4
+      with:
+        path: .build
+        key: ${{ runner.os }}-swiftpm-${{ hashFiles('**/Package.resolve') }}
+        restore-keys: |
+          ${{ runner.os }}-swiftpm-
     - name: Build
       run: swift build -v
     - name: Run tests
