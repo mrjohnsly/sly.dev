@@ -71,3 +71,15 @@ jobs:
           KNOWN_HOSTS: ${{ secrets.STAGING_KNOWN_HOSTS }}
         run: |
           echo "${KNOWN_HOSTS}" > ~/.ssh/known_hosts
+      - name: Add SSH config file
+        env:
+          SSH_HOST: ${{ secrets.STAGING_SSH_HOST }}
+          SSH_USER: ${{ secrets.STAGING_SSH_USER }}
+        run: |
+          cat >>~/.ssh/config <<END
+          Host $SSH_HOST
+            HOST $SSH_HOST
+            User $SSH_USER
+            IdentityFile ~/.ssh/staging.key
+            StrictHostKeyChecking yes
+          END
