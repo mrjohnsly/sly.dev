@@ -57,8 +57,13 @@ jobs:
         path: sly.dev-0.0.1.tar.gz
 
   deploy-to-staging:
+    needs: [test, build-release]
     runs-on: ubuntu-latest
     steps:
+      - name: Download artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: sly.dev-executable
       - name: Install SSH key
         env:
           SSH_KEY: ${{ secrets.STAGING_SSH_KEY }}
