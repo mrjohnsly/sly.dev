@@ -55,3 +55,14 @@ jobs:
       with:
         name: sly.dev-executable
         path: sly.dev-0.0.1.tar.gz
+
+  deploy-to-staging:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install SSH key
+        env:
+          SSH_KEY: ${{ secrets.STAGING_SSH_KEY }}
+        run: |
+          mkdir -p ~/.ssh
+          echo "${SSH_KEY}" > ~/.ssh/staging.key
+          chmod 600 ~/.ssh/staging.key
