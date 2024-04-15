@@ -95,3 +95,5 @@ jobs:
           SSH_USER: ${{ secrets.STAGING_SSH_USER }}
         run: |
           scp -P $SSH_PORT sly.dev-0.0.1.tar.gz $SSH_USER@$SSH_HOST:/var/www/staging.sly.dev
+          cd /var/www/staging.sly.dev
+          tar xvzf sly.dev-0.0.1.tar.gz --no-same-permissions
