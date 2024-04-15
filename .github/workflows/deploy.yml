@@ -113,7 +113,7 @@ jobs:
           SSH_USER: ${{ secrets.STAGING_SSH_USER }}
         run: |
           ssh -p $SSH_PORT $SSH_USER@$SSH_HOST <<END
-            pkill -f SlyDevServer
+            pkill -f SlyDevServer || true
           END
       - name: Start server
         env:
