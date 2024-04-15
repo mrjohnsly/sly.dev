@@ -12,7 +12,7 @@ struct SlyDevServer: AsyncParsableCommand {
     func run() async throws {
         let router = Router()
         router.get("/") { request, context in
-            "Hello, World!\n"
+            "Hello, World!!!\n"
         }
 
         let app = Application(router: router)
