@@ -135,3 +135,11 @@ jobs:
             echo "Health check failed"
             exit 1
           fi
+  deploy-to-production:
+    needs: [deploy-to-staging]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: sly.dev-executable
