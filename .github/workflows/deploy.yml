@@ -110,7 +110,7 @@ jobs:
             tar xvzf sly.dev-0.0.1.tar.gz --no-same-permissions
             chmod +x SlyDevServer
           END
-      - name: Stop server
+      - name: Stop app
         env:
           SSH_HOST: ${{ secrets.STAGING_SSH_HOST }}
           SSH_PORT: ${{ secrets.STAGING_SSH_PORT }}
@@ -119,7 +119,7 @@ jobs:
           ssh -p $SSH_PORT $SSH_USER@$SSH_HOST <<END
             pkill -f SlyDevServer || true
           END
-      - name: Start server
+      - name: Start app
         env:
           SSH_HOST: ${{ secrets.STAGING_SSH_HOST }}
           SSH_PORT: ${{ secrets.STAGING_SSH_PORT }}
