@@ -126,3 +126,12 @@ jobs:
             cd /var/www/staging.sly.dev/
             nohup ./SlyDevServer </dev/null >/dev/null 2>&1 &
           END
+      - name: Check health
+        run: |
+          response=$(curl -o /dev/null -s -w "%{http_code}\n" https://staging.sly.dev/health)
+          if [ "$response" -eq 200 ]; then
+            echo "Health check passed"
+          else
+            echo "Health check failed"
+            exit 1
+          fi
