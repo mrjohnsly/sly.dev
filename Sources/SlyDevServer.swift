@@ -6,13 +6,16 @@
 
 import ArgumentParser
 import Hummingbird
+import Mustache
 
 @main
 struct SlyDevServer: AsyncParsableCommand {
     func run() async throws {
+        let library = try await MustacheLibrary(directory: "templates")
         let router = Router()
-        router.get("/") { request, context in
-            "Hello, World!!!\n"
+        router.get("/") { request, context -> HTML in
+            let html = library.render((), withTemplate: "index")!
+            return HTML(html: html)
         }
 
         let app = Application(router: router)
