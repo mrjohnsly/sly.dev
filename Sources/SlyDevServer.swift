@@ -18,6 +18,10 @@ struct SlyDevServer: AsyncParsableCommand {
             return HTML(html: html)
         }
 
+        router.get("/health") { request, context in
+            "Up!"
+        }
+
         let app = Application(router: router)
 
         try await app.runService()
