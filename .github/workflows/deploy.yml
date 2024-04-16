@@ -143,3 +143,73 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: sly.dev-executable
+      - name: Install SSH key
+        env:
+          SSH_KEY: ${{ secrets.PRODUCTION_SSH_KEY }}
+        run: |
+          mkdir -p ~/.ssh
+          echo "${SSH_KEY}" > ~/.ssh/production.key
+          chmod 600 ~/.ssh/production.key
+      - name: Add production to known_hosts
+        env:
+          KNOWN_HOSTS: ${{ secrets.PRODUCTION_KNOWN_HOSTS }}
+        run: |
+          echo "${KNOWN_HOSTS}" > ~/.ssh/known_hosts
+      - name: Add SSH config file
+        env:
+          SSH_HOST: ${{ secrets.PRODUCTION_SSH_HOST }}
+          SSH_USER: ${{ secrets.PRODUCTION_SSH_USER }}
+        run: |
+          cat >>~/.ssh/config <<END
+          Host $SSH_HOST
+            Hostname $SSH_HOST
+            User $SSH_USER
+            IdentityFile ~/.ssh/production.key
+            StrictHostKeyChecking yes
+          END
+      - name: Copy artifact to production server
+        env:
+          SSH_HOST: ${{ secrets.PRODUCTION_SSH_HOST }}
+          SSH_PORT: ${{ secrets.PRODUCTION_SSH_PORT }}
+          SSH_USER: ${{ secrets.PRODUCTION_SSH_USER }}
+        run: |
+          scp -P $SSH_PORT sly.dev-0.0.1.tar.gz $SSH_USER@$SSH_HOST:/var/www/sly.dev
+      - name: Extract artifact
+        env:
+          SSH_HOST: ${{ secrets.PRODUCTION_SSH_HOST }}
+          SSH_PORT: ${{ secrets.PRODUCTION_SSH_PORT }}
+          SSH_USER: ${{ secrets.PRODUCTION_SSH_USER }}
+        run: |
+          ssh -p $SSH_PORT $SSH_USER@$SSH_HOST <<END
+            cd /var/www/sly.dev/
+            tar xvzf sly.dev-0.0.1.tar.gz --no-same-permissions
+            chmod +x SlyDevServer
+          END
+      - name: Stop server
+        env:
+          SSH_HOST: ${{ secrets.PRODUCTION_SSH_HOST }}
+          SSH_PORT: ${{ secrets.PRODUCTION_SSH_PORT }}
+          SSH_USER: ${{ secrets.PRODUCTION_SSH_USER }}
+        run: |
+          ssh -p $SSH_PORT $SSH_USER@$SSH_HOST <<END
+            pkill -f SlyDevServer || true
+          END
+      - name: Start server
+        env:
+          SSH_HOST: ${{ secrets.PRODUCTION_SSH_HOST }}
+          SSH_PORT: ${{ secrets.PRODUCTION_SSH_PORT }}
+          SSH_USER: ${{ secrets.PRODUCTION_SSH_USER }}
+        run: |
+          ssh -p $SSH_PORT $SSH_USER@$SSH_HOST <<END
+            cd /var/www/sly.dev/
+            nohup ./SlyDevServer </dev/null >/dev/null 2>&1 &
+          END
+      - name: Check health
+        run: |
+          response=$(curl -o /dev/null -s -w "%{http_code}\n" https://sly.dev/health)
+          if [ "$response" -eq 200 ]; then
+            echo "Health check passed"
+          else
+            echo "Health check failed"
+            exit 1
+          fi
