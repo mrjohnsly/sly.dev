@@ -2,15 +2,10 @@
 - hosts: localhost
   become: true
 
-  tasks:
-    - name: Install and Configure Caddy
-      become: true
-      become_user: root
-
-      roles:
-        - role: caddy_ansible.caddy_ansible
-          vars:
-            caddy_config: |
-              staging.sly.dev {
-                reverse_proxy 127.0.0.1:8080
-              }
+  roles:
+    - role: caddy_ansible.caddy_ansible
+      vars:
+        caddy_config: |
+          staging.sly.dev {
+            reverse_proxy 127.0.0.1:8080
+          }
