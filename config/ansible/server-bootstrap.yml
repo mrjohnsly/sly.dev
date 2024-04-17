@@ -15,7 +15,7 @@
     - name: Add the GPG key for the Caddy repository
       ansible.builtin.shell:
         cmd: |
-          curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/gpg.key' | gpg --dearmor -o /usr/share/keyrings/caddy-stable-archive-keyring.gpg
+          curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/gpg.key' | gpg --batch --dearmor -o /usr/share/keyrings/caddy-stable-archive-keyring.gpg
         warn: false
 
     - name: Add the Caddy repository to the sources list
