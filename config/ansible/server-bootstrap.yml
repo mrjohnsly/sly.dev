@@ -4,12 +4,9 @@
 
   vars:
     repo_dir: /home/ansible/sly.dev
-    env_type: "{{ 'production' if ansible_facts['hostname'] == 'sly.dev' else 'staging' }}"
+    env_type: "{{ 'production' if ansible_facts['hostname'] == 'sly' else 'staging' }}"
 
   tasks:
-    - name: Print hostname and environment type
-      debug:
-        msg: "Hostname: {{ ansible_facts['hostname'] }}, Environment Type: {{ env_type }}"
     - name: Install necessary packages
       ansible.builtin.shell:
         cmd: |
