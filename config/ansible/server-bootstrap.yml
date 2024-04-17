@@ -49,6 +49,7 @@
       ansible.builtin.get_url:
         url: https://dl.cloudsmith.io/public/caddy/stable/gpg.key
         dest: /tmp/caddy.gpg
+        force: true
       register: download_gpg
 
     - name: Remove existing GPG key file if it exists
@@ -56,14 +57,14 @@
         path: /usr/share/keyrings/caddy-stable-archive-keyring.gpg
         state: absent
 
-    - name: Import GPG key from downloaded file
-      ansible.builtin.shell:
-        cmd: gpg --batch --dearmor -o /usr/share/keyrings/caddy-stable-archive-keyring.gpg /tmp/caddy.gpg
-      when: download_gpg.changed
+    - name: Add the GPG key to the trusted set
+      ansible.builtin.apt_key:
+        url: https://dl.cloudsmith.io/public/caddy/stable/gpg.key
+        state: present
 
     - name: Add the Caddy repository
       ansible.builtin.apt_repository:
-        repo: deb [signed-by=/usr/share/keyrings/caddy-stable-archive-keyring.gpg] https://dl.cloudsmith.io/public/caddy/stable/deb/debian any-version main
+        repo: "deb https://dl.cloudsmith.io/public/caddy/stable/deb/debian any-version main"
         state: present
 
     - name: Install Caddy
