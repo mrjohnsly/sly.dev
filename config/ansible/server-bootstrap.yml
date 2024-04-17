@@ -15,7 +15,14 @@
           - apt-transport-https
           - curl
           - ufw
+          - fail2ban
         state: present
+
+    - name: Configure fail2ban
+      copy:
+        src: "{{ repo_dir }}/config/fail2ban/jail.local"
+        dest: /etc/fail2ban/jail.local
+      notify: Restart fail2ban
 
     - name: Enable UFW
       ansible.builtin.ufw:
@@ -79,4 +86,9 @@
     - name: Restart Caddy
       service:
         name: caddy
+        state: restarted
+
+    - name: Restart fail2ban
+      service:
+        name: fail2ban
         state: restarted
