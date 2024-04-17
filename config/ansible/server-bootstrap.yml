@@ -29,7 +29,8 @@
 
     - name: Add Caddy src repository to sources list
       apt_repository:
-        repo: "deb-src https://dl.cloudsmith.io/public/caddy/stable/deb/debian
+        repo:
+          "deb-src https://dl.cloudsmith.io/public/caddy/stable/debian.deb.txt
           any-version main"
         state: present
         filename: caddy-stable
