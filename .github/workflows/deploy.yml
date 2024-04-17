@@ -176,6 +176,9 @@ jobs:
           SSH_PORT: ${{ secrets.PRODUCTION_SSH_PORT }}
           SSH_USER: ${{ secrets.PRODUCTION_SSH_USER }}
         run: |
+          ssh -p $SSH_PORT $SSH_USER@$SSH_HOST <<END
+            mkdir -p /var/www/sly.dev
+          END
           scp -P $SSH_PORT sly.dev-0.0.1.tar.gz $SSH_USER@$SSH_HOST:/var/www/sly.dev
       - name: Extract artifact
         env:
