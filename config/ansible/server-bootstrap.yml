@@ -20,19 +20,19 @@
     - name: Allow SSH traffic
       ansible.builtin.ufw:
         rule: allow
-        port: "22"
+        port: 22
         proto: tcp
 
     - name: Allow HTTP traffic
       ansible.builtin.ufw:
         rule: allow
-        port: "80"
+        port: 80
         proto: tcp
 
     - name: Allow HTTPS traffic
       ansible.builtin.ufw:
         rule: allow
-        port: "443"
+        port: 443
         proto: tcp
 
     - name: Install necessary packages
