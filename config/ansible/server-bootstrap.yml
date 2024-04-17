@@ -4,6 +4,7 @@
 
   vars:
     repo_dir: /home/ansible/sly.dev
+    env_type: "{{ 'production' if ansible_facts['hostname'] == 'sly.dev' else 'staging' }}"
 
   tasks:
     - name: Install necessary packages
@@ -43,7 +44,7 @@
 
     - name: Configure Caddy
       copy:
-        src: "{{ repo_dir }}/config/caddy/Caddyfile"
+        src: "{{ repo_dir }}/config/caddy/Caddyfile_{{ env_type }}"
         dest: /etc/caddy/Caddyfile
       notify: Restart Caddy
 
