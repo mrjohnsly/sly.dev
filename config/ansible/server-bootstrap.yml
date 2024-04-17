@@ -23,11 +23,6 @@
         dest: /tmp/caddy.gpg
       register: download_gpg
 
-    - name: Remove existing GPG key file if it exists
-      ansible.builtin.file:
-        path: /usr/share/keyrings/caddy-stable-archive-keyring.gpg
-        state: absent
-
     - name: Import GPG key from downloaded file
       ansible.builtin.shell:
         cmd: gpg --batch --dearmor -o /usr/share/keyrings/caddy-stable-archive-keyring.gpg /tmp/caddy.gpg
