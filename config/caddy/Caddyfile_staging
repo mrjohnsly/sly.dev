@@ -1,3 +1,11 @@
 staging.sly.dev {
 	reverse_proxy 127.0.0.1:8080
+
+	log {
+		output file /var/log/caddy/staging.sly.dev.log {
+			roll_size 100mb
+			roll_keep 5
+			roll_keep_for 720h
+		}
+	}
 }
