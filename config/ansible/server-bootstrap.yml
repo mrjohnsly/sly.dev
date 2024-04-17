@@ -8,10 +8,37 @@
 
   tasks:
     - name: Install necessary packages
-      ansible.builtin.shell:
-        cmd: |
-          apt install -y debian-keyring debian-archive-keyring apt-transport-https curl
-        warn: false
+      ansible.builtin.apt:
+        name:
+          - debian-keyring
+          - debian-archive-keyring
+          - apt-transport-https
+          - curl
+          - ufw
+        state: present
+
+    - name: Enable UFW
+      ansible.builtin.ufw:
+        state: enabled
+        default: deny
+
+    - name: Allow SSH traffic
+      ansible.builtin.ufw:
+        rule: allow
+        port: "22"
+        proto: tcp
+
+    - name: Allow HTTP traffic
+      ansible.builtin.ufw:
+        rule: allow
+        port: "80"
+        proto: tcp
+
+    - name: Allow HTTPS traffic
+      ansible.builtin.ufw:
+        rule: allow
+        port: "443"
+        proto: tcp
 
     - name: Remove existing GPG key file if it exists
       ansible.builtin.file:
