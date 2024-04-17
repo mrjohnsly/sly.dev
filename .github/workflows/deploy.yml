@@ -34,7 +34,7 @@ jobs:
         curl -L https://swift-server.github.io/swiftly/swiftly-install.sh | bash -s -- --disable-confirmation
     - name: Install Swift
       run: |
-        swiftly install latest
+        swiftly install latest --token ${{ secrets.SWIFTLY_ACCESS_TOKEN }}
     - name: Cache SwiftPM packages
       uses: actions/cache@v4
       with:
