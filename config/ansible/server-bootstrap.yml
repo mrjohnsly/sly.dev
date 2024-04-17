@@ -12,6 +12,11 @@
           apt install -y debian-keyring debian-archive-keyring apt-transport-https curl
         warn: false
 
+    - name: Remove existing GPG key file if it exists
+      ansible.builtin.file:
+        path: /usr/share/keyrings/caddy-stable-archive-keyring.gpg
+        state: absent
+
     - name: Add the GPG key for the Caddy repository
       ansible.builtin.shell:
         cmd: |
