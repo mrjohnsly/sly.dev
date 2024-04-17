@@ -10,26 +10,31 @@
       ansible.builtin.shell:
         cmd: |
           apt install -y debian-keyring debian-archive-keyring apt-transport-https curl
+        warn: false
 
     - name: Add the GPG key for the Caddy repository
       ansible.builtin.shell:
         cmd: |
           curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/gpg.key' | gpg --dearmor -o /usr/share/keyrings/caddy-stable-archive-keyring.gpg
+        warn: false
 
     - name: Add the Caddy repository to the sources list
       ansible.builtin.shell:
         cmd: |
           curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/debian.deb.txt' | tee /etc/apt/sources.list.d/caddy-stable.list
+        warn: false
 
     - name: Update apt cache
       ansible.builtin.shell:
         cmd: |
           apt update
+        warn: false
 
     - name: Install Caddy
       ansible.builtin.shell:
         cmd: |
           apt install caddy
+        warn: false
 
     - name: Configure Caddy
       copy:
