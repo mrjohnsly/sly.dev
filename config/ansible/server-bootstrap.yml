@@ -1,54 +1,16 @@
 ---
 - hosts: localhost
   become: true
-  become_user: root
-
-  vars:
-    repo_dir: /home/ansible/sly.dev
 
   tasks:
-    - name: Install required packages
-      apt:
-        update_cache: yes
-        name:
-          - debian-keyring
-          - debian-archive-keyring
-          - apt-transport-https
-        state: present
+    - name: Install and Configure Caddy
+      become: true
+      become_user: root
 
-    - name: Add Cloudsmith repository
-      apt_key:
-        url: "https://dl.cloudsmith.io/public/caddy/stable/gpg.key"
-        state: present
-
-    - name: Add Caddy repository to sources list
-      apt_repository:
-        repo: "deb https://dl.cloudsmith.io/public/caddy/stable/deb/debian
-          any-version main"
-        state: present
-        filename: caddy-stable
-
-    - name: Add Caddy src repository to sources list
-      apt_repository:
-        repo:
-          "deb-src https://dl.cloudsmith.io/public/caddy/stable/debian.deb.txt
-          any-version main"
-        state: present
-        filename: caddy-stable
-
-    - name: Install Caddy
-      apt:
-        name: caddy
-        state: present
-
-    - name: Configure Caddy
-      copy:
-        src: "{{ repo_dir }}/config/caddy/Caddyfile"
-        dest: /etc/caddy/Caddyfile
-      notify: Restart Caddy
-
-  handlers:
-    - name: Restart Caddy
-      service:
-        name: caddy
-        state: restarted
+      roles:
+        - role: caddy_ansible.caddy_ansible
+          vars:
+            caddy_config: |
+              staging.sly.dev {
+                reverse_proxy 127.0.0.1:8080
+              }
