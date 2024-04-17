@@ -15,8 +15,17 @@ users:
     lock_passwd: true
     ssh_authorized_keys:
       - <your-ssh-public-key>
+  - name: sly
+    gecos: Sly User
+    groups: sudo, admin, wheel
+    sudo: ALL=(ALL) NOPASSWD:ALL
+    shell: /bin/bash
+    lock_passwd: true
+    ssh_authorized_keys:
+      - <your-ssh-public-key>
 
 runcmd:
+  - [chown, -R, sly:sly, /home/sly]
   - [chown, -R, ansible:ansible, /home/ansible]
   - [usermod, -aG, syslog, ansible]
   - [
