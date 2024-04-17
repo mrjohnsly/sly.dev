@@ -7,6 +7,34 @@
     env_type: "{{ 'production' if ansible_facts['hostname'] == 'sly' else 'staging' }}"
 
   tasks:
+    - name: Install UFW
+      ansible.builtin.apt:
+        name: ufw
+        state: present
+
+    - name: Enable UFW
+      ansible.builtin.ufw:
+        state: enabled
+        default: deny # Set the default policy to deny to make sure only specified traffic is allowed
+
+    - name: Allow SSH traffic
+      ansible.builtin.ufw:
+        rule: allow
+        port: 22
+        proto: tcp
+
+    - name: Allow HTTP traffic
+      ansible.builtin.ufw:
+        rule: allow
+        port: 80
+        proto: tcp
+
+    - name: Allow HTTPS traffic
+      ansible.builtin.ufw:
+        rule: allow
+        port: 443
+        proto: tcp
+
     - name: Install necessary packages
       ansible.builtin.apt:
         name:
