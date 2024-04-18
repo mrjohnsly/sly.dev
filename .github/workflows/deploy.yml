@@ -101,6 +101,7 @@ jobs:
         run: |
           ssh -p $SSH_PORT $SSH_USER@$SSH_HOST <<END
             sudo mkdir -p /var/www/staging.sly.dev
+            sudo chown -R $SSH_USER:$SSH_USER /var/www/staging.sly.dev
           END
           scp -P $SSH_PORT sly.dev-0.0.1.tar.gz $SSH_USER@$SSH_HOST:/var/www/staging.sly.dev
       - name: Extract artifact
@@ -181,7 +182,8 @@ jobs:
           SSH_USER: ${{ secrets.PRODUCTION_SSH_USER }}
         run: |
           ssh -p $SSH_PORT $SSH_USER@$SSH_HOST <<END
-            mkdir -p /var/www/sly.dev
+            sudo mkdir -p /var/www/sly.dev
+            sudo chown -R $SSH_USER:$SSH_USER /var/www/sly.dev
           END
           scp -P $SSH_PORT sly.dev-0.0.1.tar.gz $SSH_USER@$SSH_HOST:/var/www/sly.dev
       - name: Extract artifact
