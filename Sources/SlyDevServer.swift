@@ -6,13 +6,19 @@
 
 import ArgumentParser
 import Hummingbird
+import Logging
 import Mustache
 
 @main
 struct SlyDevServer: AsyncParsableCommand {
     func run() async throws {
+        var logger = Logger(label: "SlyDevServer")
+        logger.logLevel = .debug
+
         let library = try await MustacheLibrary(directory: "templates")
+        
         let router = Router()
+        router.middlewares.add(LogRequestsMiddleware(.info))
         router.get("/") { request, context -> HTML in
             let html = library.render((), withTemplate: "index")!
             return HTML(html: html)
@@ -22,7 +28,7 @@ struct SlyDevServer: AsyncParsableCommand {
             "Up!"
         }
 
-        let app = Application(router: router)
+        let app = Application(router: router, logger: logger)
 
         try await app.runService()
     }
