@@ -1,5 +1,4 @@
 import Hummingbird
-import Mustache
 
 struct HTML: ResponseGenerator {
     let html: String
