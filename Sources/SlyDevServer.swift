@@ -25,11 +25,8 @@ struct SlyDevServer: AsyncParsableCommand {
 
         let router = Router()
         router.middlewares.add(LogRequestsMiddleware(.info))
-        router.get("/") { request, context -> HTML in
-            let html = library.render((), withTemplate: "index")!
-            return HTML(html: html)
-        }
 
+        IndexController(library: library).addRoutes(to: router.group("/"))
         HealthController().addRoutes(to: router.group("health"))
 
         let app = Application(
