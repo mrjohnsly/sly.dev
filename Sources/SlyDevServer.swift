@@ -30,9 +30,7 @@ struct SlyDevServer: AsyncParsableCommand {
             return HTML(html: html)
         }
 
-        router.get("/health") { request, context in
-            "Up!"
-        }
+        HealthController().addRoutes(to: router.group("health"))
 
         let app = Application(
             router: router,
