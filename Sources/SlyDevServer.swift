@@ -4,7 +4,7 @@ import Logging
 import Mustache
 
 @main
-struct SlyDevServer: AsyncParsableCommand {
+struct SlyDevServer: AsyncParsableCommand, AppArguments {
     @Option(name: .shortAndLong)
     var hostname: String = "127.0.0.1"
 

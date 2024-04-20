@@ -2,7 +2,7 @@ import Hummingbird
 import Logging
 import Mustache
 
-func buildApplication(_ arguments: SlyDevServer) async throws -> some ApplicationProtocol {
+func buildApplication(_ arguments: some AppArguments) async throws -> some ApplicationProtocol {
 	var logger = Logger(label: "SlyDevServer")
 	logger.logLevel = .debug
 
