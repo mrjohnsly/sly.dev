@@ -12,22 +12,8 @@ struct SlyDevServer: AsyncParsableCommand {
     var port: Int = 8080
 
     func run() async throws {
-        var logger = Logger(label: "SlyDevServer")
-        logger.logLevel = .debug
-
-        let library = try await MustacheLibrary(directory: "templates")
-
-        let router = Router()
-        router.middlewares.add(LogRequestsMiddleware(.info))
-
-        IndexController(library: library).addRoutes(to: router.group("/"))
-        HealthController().addRoutes(to: router.group("health"))
-
-        let app = Application(
-            router: router,
-            configuration: .init(address: .hostname(self.hostname, port: self.port)),
-            logger: logger
-        )
+        
+        let app = try await buildApplication(self)
 
         try await app.runService()
     }
