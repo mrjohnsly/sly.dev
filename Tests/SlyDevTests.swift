@@ -7,7 +7,8 @@ final class SlyDevServerTests: XCTestCase {
 		var port: Int = 8080
 	}
 
-	func test_Example() {
+	func test_Example() async throws {
+		let app = try await buildApplication(TestArguments())
 		XCTAssertTrue(true)
 	}
 }
