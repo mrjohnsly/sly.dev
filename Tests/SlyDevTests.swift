@@ -1,4 +1,6 @@
 @testable import SlyDevServer
+import Hummingbird
+import HummingbirdTesting
 import XCTest
 
 final class SlyDevServerTests: XCTestCase {
@@ -9,6 +11,11 @@ final class SlyDevServerTests: XCTestCase {
 
 	func test_Example() async throws {
 		let app = try await buildApplication(TestArguments())
-		XCTAssertTrue(true)
+
+		try await app.test(.router) { client in
+			try await client.execute(uri: "/health", method: .get) { response in
+				XCTAssertEqual(response.status, .ok)
+			}
+		}
 	}
 }
