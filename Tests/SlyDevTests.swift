@@ -9,12 +9,20 @@ final class SlyDevServerTests: XCTestCase {
 		var port: Int = 8080
 	}
 
-	func test_Example() async throws {
+	func test_Get_Health_Returns200Up() async throws {
 		let app = try await buildApplication(TestArguments())
 
 		try await app.test(.router) { client in
 			try await client.execute(uri: "/health", method: .get) { response in
 				XCTAssertEqual(response.status, .ok)
+
+				let buffer = response.body
+				let data = Data(buffer: buffer)
+				if let body = String(data: data, encoding: .utf8) {
+					XCTAssertEqual(body, "Up!")
+				} else {
+					XCTFail("Failed to decode body")
+				}
 			}
 		}
 	}
