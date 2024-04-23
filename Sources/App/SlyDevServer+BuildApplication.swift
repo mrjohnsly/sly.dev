@@ -6,7 +6,7 @@ func buildApplication(_ arguments: some AppArguments) async throws -> some Appli
 	var logger = Logger(label: "SlyDevServer")
 	logger.logLevel = .debug
 
-	let library = try await MustacheLibrary(directory: "templates")
+	let library = try await MustacheLibrary(directory: "Views")
 
 	let router = Router()
 	router.middlewares.add(LogRequestsMiddleware(.info))
