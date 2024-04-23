@@ -1,0 +1,13 @@
+[Unit]
+Description=SlyDevServer
+After=network.target
+
+[Service]
+ExecStart=/var/www/staging.sly.dev/SlyDevServer
+WorkingDirectory=/var/www/staging.sly.dev/
+Restart=always
+User=slydev
+Group=slydev
+
+[Install]
+WantedBy=multi-user.target

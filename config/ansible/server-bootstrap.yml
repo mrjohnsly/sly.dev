@@ -100,6 +100,29 @@
         backrefs: yes
       notify: Restart sshd
 
+    - name: Create slydev group
+      group:
+        name: slydev
+        state: present
+
+    - name: Create slydev user
+      user:
+        name: slydev
+        group: slydev
+        shell: /sbin/nologin
+        system: yes
+        create_home: no
+
+    - name: Create systemd service
+      template:
+        src: "{{ repo_dir }}/config/systemd/slydevserver_{{ env_type }}.j2"
+        dest: /etc/systemd/system/slydevserver.service
+        owner: root
+        group: root
+        mode: "0644"
+      notify:
+        - Reload system
+
   handlers:
     - name: Restart Caddy
       service:
@@ -115,3 +138,7 @@
       service:
         name: sshd
         state: restarted
+
+    - name: Reload system
+      systemd:
+        daemon_reload: yes
