@@ -19,7 +19,7 @@ final class IndexControllerTests: XCTestCase {
                 let buffer = response.body
                 let data = Data(buffer: buffer)
                 if let body = String(data: data, encoding: .utf8) {
-                    XCTAssertTrue(body.contains("<title>Sly</title>"))
+                    XCTAssertTrue(body.contains("<title>Sly: John Sylvester | Dog Walker & iOS Engineer</title>"))
                 } else {
                     XCTFail("Failed to decode body")
                 }
