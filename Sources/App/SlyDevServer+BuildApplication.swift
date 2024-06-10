@@ -13,6 +13,7 @@ func buildApplication(_ arguments: some AppArguments) async throws -> some Appli
 
 	IndexController(library: library).addRoutes(to: router.group("/"))
 	HealthController().addRoutes(to: router.group("health"))
+	WWDC24Controller(library: library).addRoutes(to: router.group("wwdc24"))
 
 	let app = Application(
 		router: router,
