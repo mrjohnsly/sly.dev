@@ -1,5 +1,5 @@
 {
-  "originHash" : "6bfc48a9fe76112c4feef2a467ffbd03a210433dc962df156dff08d57372606d",
+  "originHash" : "34a500fa7e3c611f9364ff33da9fb3a62bf1bf639d5ae9b189770643f82e088b",
   "pins" : [
     {
       "identity" : "async-http-client",
@@ -15,8 +15,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/hummingbird-project/hummingbird.git",
       "state" : {
-        "revision" : "0e6de7141f4feda30c319c1a14047b7057f38db5",
-        "version" : "2.0.0-rc.1"
+        "revision" : "50f887ff416593b468cf238b9536f671786a1507",
+        "version" : "2.0.0-rc.2"
       }
     },
     {
