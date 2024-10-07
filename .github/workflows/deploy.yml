@@ -210,6 +210,8 @@ jobs:
         run: |
           ssh -p $SSH_PORT $SSH_USER@$SSH_HOST <<END
             sudo systemctl stop slydevserver
+            sudo rm -rf /var/lib/caddy/.local/share/caddy/
+            sudo rm -rf /var/lib/caddy/.local/share/caddy/certificates/
           END
       - name: Start server
         env:
