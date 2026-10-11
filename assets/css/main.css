@@ -1,0 +1,9 @@
+.software {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    list-style: none;
+}
+
+.software p {
+    text-align: center;
+}
